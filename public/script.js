@@ -1,52 +1,22 @@
-"use strict";
-class FormInput {
-    constructor() {
-        this.form = document.getElementById("form");
-        this.type = document.getElementById("type");
-        this.firstname = document.getElementById("firstName");
-        this.lastname = document.getElementById("lastName");
-        this.address = document.getElementById("address");
-        this.country = document.getElementById("country");
-        this.town = document.getElementById("town");
-        this.zip = document.getElementById("zip");
-        this.product = document.getElementById("product");
-        this.price = document.getElementById("price");
-        this.quantity = document.getElementById("quantity");
-        this.tva = document.getElementById("tva");
-        this.submitFormListener();
-    }
-    submitFormListener() { 
+import { FormInput } from "./classes/Form.js";
+new FormInput();
+/* Submit Form
+form.addEventListener("submit" , (e : Event)=>{
+    e.preventDefault()
 
-        this.form.addEventListener("submit", (e) => { 
+    console.log(`
+    ${type.value}
+    ${firstname.value}
+    ${lastname.value}
+    ${address.value}
+    ${country.value}
+    ${town.value}
+    ${zip.value}
+    ${product.value}
+    ${price.value}
+    ${quantity.value}
+    ${tva.value}
+    `)
 
-            e.preventDefault(); 
-            
-            let data = this.getdata();
-           
-              if (  Array.isArray(data)) {
-                const [type ,firstName , lastName ,address , country , town ,zip,product , price ,quantity,tva] = data  
-                console.log(type ,firstName , lastName ,address , country , town ,zip,product , price ,quantity,tva)
-              }
-            else {
-                return ;
-            }
-        });
-    }
-    // this function return a tuple  or void
-    getdata() {
-        let type = this.type.value;
-        let firstName = this.firstname.value;
-        let lastName = this.lastname.value;
-        let address = this.address.value;
-        let country = this.country.value;
-        let town = this.town.value;
-        let zip = this.zip.valueAsNumber;
-        let product = this.product.value;
-        let price = this.price.valueAsNumber;
-        let quantity = this.quantity.valueAsNumber;
-        let tva = this.tva.valueAsNumber;
-       let data_tuple = zip > 0 && price > 0 && quantity > 0 && tva > 0 ? [type, firstName, lastName, address, country, town, zip, product, price, quantity, tva] : alert("champ invalide"); 
-       return data_tuple
-    }
-}
-const myform = new FormInput();
+})
+*/ 
