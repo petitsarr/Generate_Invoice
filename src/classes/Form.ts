@@ -54,7 +54,7 @@ private submitFormListener() : void {
 
                docData = new datas (type ,firstName ,lastName , address , country , town , zip , product , price ,quantity , tva,newdate) 
 
-               console.log("docForamt==>" , docData)
+               console.log("docForamt==>" , docData.htmlFormat())
 
             }
 
