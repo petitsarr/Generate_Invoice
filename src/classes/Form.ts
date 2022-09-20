@@ -21,7 +21,8 @@ export class FormInput {
     docContainer : HTMLDivElement 
     hiddenDiv : HTMLDivElement 
     formContainer : HTMLDivElement  
-    btnprint : HTMLButtonElement
+    btnprint : HTMLButtonElement 
+    btnreload : HTMLButtonElement
 
          constructor() {  
 
@@ -49,24 +50,28 @@ export class FormInput {
 
                         this.tva =  document.getElementById("tva") as HTMLInputElement    
 
-                            // place ou je vais inserer mon document 
-                            this.docContainer = document.getElementById("document-container") as HTMLDivElement
+                        // place ou je vais inserer mon document 
+                        this.docContainer = document.getElementById("document-container") as HTMLDivElement
 
-                            //Ma div invisible que je dois afficher
-                            this.hiddenDiv = document.getElementById("hiddenDiv") as HTMLDivElement   
+                         //Ma div invisible que je dois afficher
+                        this.hiddenDiv = document.getElementById("hiddenDiv") as HTMLDivElement   
 
-                            // ma div de form que je dois cacher pour inserer mon document
-                            this.formContainer = document.getElementById("form-container") as HTMLDivElement 
+                        // ma div de form que je dois cacher pour inserer mon document
+                        this.formContainer = document.getElementById("form-container") as HTMLDivElement 
 
-                            // texte a afficher sur mon boutton imprimer
-                            this.btnprint = document.getElementById("print") as HTMLButtonElement
+                         // texte a afficher sur mon boutton imprimer
+                        this.btnprint = document.getElementById("print") as HTMLButtonElement  
+
+                        this.btnreload = document.getElementById("reload") as HTMLButtonElement
                             
 
-                                 // listeners   
+                        // listeners   
 
-                                    this.submitFormListener()    
+                        this.submitFormListener()    
 
-                                    this.listenerPrint(this.btnprint ,this.docContainer)
+                         this.listenerPrint(this.btnprint ,this.docContainer)  
+
+                         this.reloadListener (this.btnreload)
 
                                 } 
 // Listeners 
@@ -125,6 +130,15 @@ export class FormInput {
 
             })
              
+         }   
+
+         reloadListener (btnreload : HTMLButtonElement) {  
+
+            btnreload.addEventListener("click" ,(e:Event) =>{  
+                
+                document.location.reload()
+            })
+
          }
     // getData return a tuple  or void
          private getdata()  : [string , string,string ,string,string ,string ,number ,string,number ,number ,number] | void{ 

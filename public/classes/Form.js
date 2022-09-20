@@ -23,9 +23,11 @@ export class FormInput {
         this.formContainer = document.getElementById("form-container");
         // texte a afficher sur mon boutton imprimer
         this.btnprint = document.getElementById("print");
+        this.btnreload = document.getElementById("reload");
         // listeners   
         this.submitFormListener();
         this.listenerPrint(this.btnprint, this.docContainer);
+        this.reloadListener(this.btnreload);
     }
     // Listeners 
     submitFormListener() {
@@ -52,6 +54,11 @@ export class FormInput {
             let doc_read;
             doc_read = new Print(btn, docContainer);
             doc_read.print();
+        });
+    }
+    reloadListener(btnreload) {
+        btnreload.addEventListener("click", (e) => {
+            document.location.reload();
         });
     }
     // getData return a tuple  or void

@@ -21,9 +21,10 @@ export class Print implements HasPrint {
         // update de document.body  ( nous avons besoin d'imprimer que notre document)  
 
           document.body.innerHTML =   this.container.innerHTML 
+
           window.print()   
 
-          // Recharge de la page pour imprimer d'autres documents 
+          // Recharge de la page 
           document.location.reload()
 
           
