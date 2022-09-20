@@ -32,8 +32,9 @@ export class datas implements HasHtmlFormat {
         this.quantity = q ;
         this.tva = tv  
         this.date = dd
-    } 
-
+    }  
+    
+   // subTtotal return totlaTtc
    private subTtotal (prix :number ,quantity :number,tva : number) : number { 
 
         // the tva in percent 
@@ -58,7 +59,7 @@ export class datas implements HasHtmlFormat {
         <h2 class="text-left">LOGO</h2>
       </div>
     <div class="col-md-6 text-right">
-        <p class="font-weight-bold mb-1">${this.documentType === "invoice" ? "Facture" :"Devis"}<span class="font-weight-normal">Numero : ${Math.floor(Math.random() * 101)}</span></p>
+        <p class="font-weight-bold mb-1">${this.documentType === "invoice" ? "Facture" :  "Devis"   }<span class="font-weight-normal">   Numero : ${Math.floor(Math.random() * 101)}</span></p>
         <p class="font-weight-bold mb-1">Date <span class="font-weight-normal"> ${this.date.toLocaleDateString()}</span></p>
     </div>
     </div>
@@ -73,7 +74,7 @@ export class datas implements HasHtmlFormat {
 
     <div class="col-sm-6 text-right">
         <p class="font-weight-bold">Informations du client</p>
-        <p class="mb-1">Mr/Mme ${this.firstname} ${this.lastname} </p>
+        <p class="mb-1">Mr/Mme : ${this.firstname} ${this.lastname} </p>
         <p class="mb-1"> ${this.address}</p>
         <p>${this.zip}</p>
         <p>${this.town}</p>

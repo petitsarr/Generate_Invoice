@@ -1,4 +1,5 @@
 import { datas } from "./datas.js";
+import { Display } from "./Display.js";
 export class FormInput {
     constructor() {
         this.form = document.getElementById("form");
@@ -13,6 +14,12 @@ export class FormInput {
         this.price = document.getElementById("price");
         this.quantity = document.getElementById("quantity");
         this.tva = document.getElementById("tva");
+        // place ou je vais inserer mon document 
+        this.docContainer = document.getElementById("document-container");
+        //Ma div invisible que je dois afficher
+        this.hiddenDiv = document.getElementById("hiddenDiv");
+        // ma div de form que je dois cacher pour inserer mon document
+        this.formContainer = document.getElementById("form-container");
         this.submitFormListener();
     }
     submitFormListener() {
@@ -26,12 +33,15 @@ export class FormInput {
                 let newdate = new Date();
                 docData = new datas(type, firstName, lastName, address, country, town, zip, product, price, quantity, tva, newdate);
                 console.log("docForamt==>", docData.htmlFormat());
+                let docTemplate;
+                docTemplate = new Display(this.docContainer, this.hiddenDiv, this.formContainer);
+                docTemplate.render(docData, type);
             }
             // console.log("my datas==>",data) 
             // console.log("my date==>",dat)
         });
     }
-    // this function return a tuple  or void
+    // getData return a tuple  or void
     getdata() {
         let type = this.type.value;
         let firstName = this.firstname.value;

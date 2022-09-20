@@ -1,5 +1,7 @@
 import { datas } from "./datas.js"; 
-import {HasHtmlFormat} from "../interfaces/HasHtmlFormat.js"
+import { Display } from "./Display.js";
+import {HasHtmlFormat} from "../interfaces/HasHtmlFormat.js" 
+import {HasRender} from "../interfaces/HasRender" ; 
 export class FormInput { 
 
     form : HTMLFormElement  ;
@@ -13,22 +15,46 @@ export class FormInput {
     product : HTMLInputElement 
     price : HTMLInputElement ;
     quantity : HTMLInputElement 
-    tva  : HTMLInputElement
+    tva  : HTMLInputElement 
+    docContainer : HTMLDivElement 
+    hiddenDiv : HTMLDivElement 
+    formContainer : HTMLDivElement
     constructor() {  
 
 this.form = document.getElementById("form") as HTMLFormElement 
-this.type = document.getElementById("type" ) as HTMLSelectElement 
+
+this.type = document.getElementById("type" ) as HTMLSelectElement  
+
 this.firstname  =  document.getElementById("firstName") as HTMLInputElement
+
 this.lastname  =  document.getElementById("lastName") as HTMLInputElement 
+
 this.address  =  document.getElementById("address") as HTMLInputElement 
+
 this.country  =  document.getElementById("country") as HTMLInputElement 
+
 this.town  =  document.getElementById("town") as HTMLInputElement 
+
 this.zip   =  document.getElementById("zip") as HTMLInputElement 
+
 this.product  =  document.getElementById("product") as HTMLInputElement 
+
 this.price  =  document.getElementById("price") as HTMLInputElement 
+
 this.quantity  =  document.getElementById("quantity") as HTMLInputElement 
-this.tva =  document.getElementById("tva") as HTMLInputElement 
+
+this.tva =  document.getElementById("tva") as HTMLInputElement    
+
+// place ou je vais inserer mon document 
+this.docContainer = document.getElementById("document-container") as HTMLDivElement
+
+//Ma div invisible que je dois afficher
+this.hiddenDiv = document.getElementById("hiddenDiv") as HTMLDivElement   
+
+// ma div de form que je dois cacher pour inserer mon document
+this.formContainer = document.getElementById("form-container") as HTMLDivElement
  
+
 
           this.submitFormListener()
 
@@ -54,7 +80,13 @@ private submitFormListener() : void {
 
                docData = new datas (type ,firstName ,lastName , address , country , town , zip , product , price ,quantity , tva,newdate) 
 
-               console.log("docForamt==>" , docData.htmlFormat())
+               console.log("docForamt==>" , docData.htmlFormat())    
+
+               let docTemplate : HasRender 
+
+               docTemplate = new Display(this.docContainer ,this.hiddenDiv , this.formContainer)  
+
+               docTemplate.render(docData , type)
 
             }
 
@@ -67,7 +99,7 @@ private submitFormListener() : void {
         })
 
     }  
-    // this function return a tuple  or void
+    // getData return a tuple  or void
 private getdata()  : [string , string,string ,string,string ,string ,number ,string,number ,number ,number] | void{ 
        let type = this.type.value 
        let firstName = this.firstname.value  
