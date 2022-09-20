@@ -1,7 +1,9 @@
 import { datas } from "./datas.js"; 
 import { Display } from "./Display.js";
 import {HasHtmlFormat} from "../interfaces/HasHtmlFormat.js" 
-import {HasRender} from "../interfaces/HasRender" ; 
+import {HasRender} from "../interfaces/HasRender.js" ;  
+import { Print } from "./print.js";
+import { HasPrint } from "../interfaces/hasPrint.js";
 export class FormInput { 
 
     form : HTMLFormElement  ;
@@ -56,15 +58,18 @@ export class FormInput {
                             // ma div de form que je dois cacher pour inserer mon document
                             this.formContainer = document.getElementById("form-container") as HTMLDivElement 
 
-                            // Ma button imprimer 
+                            // texte a afficher sur mon boutton imprimer
                             this.btnprint = document.getElementById("print") as HTMLButtonElement
                             
 
+                                 // listeners   
 
-                                    this.submitFormListener()
+                                    this.submitFormListener()    
+
+                                    this.listenerPrint(this.btnprint ,this.docContainer)
 
                                 } 
-
+// Listeners 
         private submitFormListener() : void {  
 
                         this.form.addEventListener("submit",(e:Event)=>{  
@@ -93,7 +98,9 @@ export class FormInput {
 
                             docTemplate.render(docData , type)
 
-            }
+            }  
+
+            
 
             
 
@@ -103,7 +110,22 @@ export class FormInput {
             
         })
 
-    }  
+    }     
+
+         private listenerPrint(btn : HTMLButtonElement ,docContainer : HTMLDivElement) {   
+
+            btn.addEventListener("click" ,(e:Event)=>{  
+              
+
+                let doc_read : HasPrint
+                
+                doc_read = new Print(btn ,docContainer)  
+                
+                doc_read.print()
+
+            })
+             
+         }
     // getData return a tuple  or void
          private getdata()  : [string , string,string ,string,string ,string ,number ,string,number ,number ,number] | void{ 
                         let type = this.type.value 

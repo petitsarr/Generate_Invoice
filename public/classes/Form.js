@@ -1,5 +1,6 @@
 import { datas } from "./datas.js";
 import { Display } from "./Display.js";
+import { Print } from "./print.js";
 export class FormInput {
     constructor() {
         this.form = document.getElementById("form");
@@ -20,10 +21,13 @@ export class FormInput {
         this.hiddenDiv = document.getElementById("hiddenDiv");
         // ma div de form que je dois cacher pour inserer mon document
         this.formContainer = document.getElementById("form-container");
-        // Ma button imprimer 
+        // texte a afficher sur mon boutton imprimer
         this.btnprint = document.getElementById("print");
+        // listeners   
         this.submitFormListener();
+        this.listenerPrint(this.btnprint, this.docContainer);
     }
+    // Listeners 
     submitFormListener() {
         this.form.addEventListener("submit", (e) => {
             e.preventDefault();
@@ -41,6 +45,13 @@ export class FormInput {
             }
             // console.log("my datas==>",data) 
             // console.log("my date==>",dat)
+        });
+    }
+    listenerPrint(btn, docContainer) {
+        btn.addEventListener("click", (e) => {
+            let doc_read;
+            doc_read = new Print(btn, docContainer);
+            doc_read.print();
         });
     }
     // getData return a tuple  or void
