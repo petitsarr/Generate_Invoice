@@ -18,75 +18,80 @@ export class FormInput {
     tva  : HTMLInputElement 
     docContainer : HTMLDivElement 
     hiddenDiv : HTMLDivElement 
-    formContainer : HTMLDivElement
-    constructor() {  
+    formContainer : HTMLDivElement  
+    btnprint : HTMLButtonElement
 
-this.form = document.getElementById("form") as HTMLFormElement 
+         constructor() {  
 
-this.type = document.getElementById("type" ) as HTMLSelectElement  
+                        this.form = document.getElementById("form") as HTMLFormElement 
 
-this.firstname  =  document.getElementById("firstName") as HTMLInputElement
+                        this.type = document.getElementById("type" ) as HTMLSelectElement  
 
-this.lastname  =  document.getElementById("lastName") as HTMLInputElement 
+                        this.firstname  =  document.getElementById("firstName") as HTMLInputElement
 
-this.address  =  document.getElementById("address") as HTMLInputElement 
+                        this.lastname  =  document.getElementById("lastName") as HTMLInputElement 
 
-this.country  =  document.getElementById("country") as HTMLInputElement 
+                        this.address  =  document.getElementById("address") as HTMLInputElement 
 
-this.town  =  document.getElementById("town") as HTMLInputElement 
+                        this.country  =  document.getElementById("country") as HTMLInputElement 
 
-this.zip   =  document.getElementById("zip") as HTMLInputElement 
+                        this.town  =  document.getElementById("town") as HTMLInputElement 
 
-this.product  =  document.getElementById("product") as HTMLInputElement 
+                        this.zip   =  document.getElementById("zip") as HTMLInputElement 
 
-this.price  =  document.getElementById("price") as HTMLInputElement 
+                        this.product  =  document.getElementById("product") as HTMLInputElement 
 
-this.quantity  =  document.getElementById("quantity") as HTMLInputElement 
+                        this.price  =  document.getElementById("price") as HTMLInputElement 
 
-this.tva =  document.getElementById("tva") as HTMLInputElement    
+                        this.quantity  =  document.getElementById("quantity") as HTMLInputElement 
 
-// place ou je vais inserer mon document 
-this.docContainer = document.getElementById("document-container") as HTMLDivElement
+                        this.tva =  document.getElementById("tva") as HTMLInputElement    
 
-//Ma div invisible que je dois afficher
-this.hiddenDiv = document.getElementById("hiddenDiv") as HTMLDivElement   
+                            // place ou je vais inserer mon document 
+                            this.docContainer = document.getElementById("document-container") as HTMLDivElement
 
-// ma div de form que je dois cacher pour inserer mon document
-this.formContainer = document.getElementById("form-container") as HTMLDivElement
- 
+                            //Ma div invisible que je dois afficher
+                            this.hiddenDiv = document.getElementById("hiddenDiv") as HTMLDivElement   
+
+                            // ma div de form que je dois cacher pour inserer mon document
+                            this.formContainer = document.getElementById("form-container") as HTMLDivElement 
+
+                            // Ma button imprimer 
+                            this.btnprint = document.getElementById("print") as HTMLButtonElement
+                            
 
 
-          this.submitFormListener()
+                                    this.submitFormListener()
 
-    } 
+                                } 
 
-private submitFormListener() : void {  
+        private submitFormListener() : void {  
 
-         this.form.addEventListener("submit",(e:Event)=>{  
+                        this.form.addEventListener("submit",(e:Event)=>{  
 
-            e.preventDefault()  
+                            e.preventDefault()  
 
-            let data = this.getdata()   
+                            let data = this.getdata()   
 
-            if(Array.isArray(data)) { 
+                            if(Array.isArray(data)) { 
 
-               const [type ,firstName ,lastName , address , country , town , zip , product , price ,quantity , tva] = data  
+                            const [type ,firstName ,lastName , address , country , town , zip , product , price ,quantity , tva] = data  
 
-               console.log(type ,firstName ,lastName , address , country , town , zip , product , price ,quantity , tva)  
+                            console.log(type ,firstName ,lastName , address , country , town , zip , product , price ,quantity , tva)  
 
-               let docData : HasHtmlFormat  
+                            let docData : HasHtmlFormat  
 
-               let newdate = new Date()  
+                            let newdate = new Date()  
 
-               docData = new datas (type ,firstName ,lastName , address , country , town , zip , product , price ,quantity , tva,newdate) 
+                            docData = new datas (type ,firstName ,lastName , address , country , town , zip , product , price ,quantity , tva,newdate) 
 
-               console.log("docForamt==>" , docData.htmlFormat())    
+                            console.log("docForamt==>" , docData.htmlFormat())    
 
-               let docTemplate : HasRender 
+                            let docTemplate : HasRender 
 
-               docTemplate = new Display(this.docContainer ,this.hiddenDiv , this.formContainer)  
+                            docTemplate = new Display(this.docContainer ,this.hiddenDiv , this.formContainer ,this.btnprint)   
 
-               docTemplate.render(docData , type)
+                            docTemplate.render(docData , type)
 
             }
 
@@ -100,33 +105,33 @@ private submitFormListener() : void {
 
     }  
     // getData return a tuple  or void
-private getdata()  : [string , string,string ,string,string ,string ,number ,string,number ,number ,number] | void{ 
-       let type = this.type.value 
-       let firstName = this.firstname.value  
-       let lastName = this.lastname.value 
-       let address = this.address.value 
-       let country = this.country.value 
-       let town = this.town.value 
-       let zip = this.zip.valueAsNumber 
-       let product= this.product.value 
-       let price = this.price.valueAsNumber 
-       let quantity = this.quantity.valueAsNumber
-       let tva = this.tva.valueAsNumber 
-        
-      // zip > 0 && price > 0 && quantity > 0 && tva > 0 ? [type ,firstName ,lastName , address , country , town , zip , product , price ,quantity , tva] : alert("champ invalide") 
-       if ( zip > 0 && price > 0 && quantity > 0 && tva > 0 ) {
-        return [type ,firstName ,lastName , address , country , town , zip , product , price ,quantity , tva] 
+         private getdata()  : [string , string,string ,string,string ,string ,number ,string,number ,number ,number] | void{ 
+                        let type = this.type.value 
+                        let firstName = this.firstname.value  
+                        let lastName = this.lastname.value 
+                        let address = this.address.value 
+                        let country = this.country.value 
+                        let town = this.town.value 
+                        let zip = this.zip.valueAsNumber 
+                        let product= this.product.value 
+                        let price = this.price.valueAsNumber 
+                        let quantity = this.quantity.valueAsNumber
+                        let tva = this.tva.valueAsNumber 
+                            
+                        // zip > 0 && price > 0 && quantity > 0 && tva > 0 ? [type ,firstName ,lastName , address , country , town , zip , product , price ,quantity , tva] : alert("champ invalide") 
+                        if ( zip > 0 && price > 0 && quantity > 0 && tva > 0 ) {
+                            return [type ,firstName ,lastName , address , country , town , zip , product , price ,quantity , tva] 
 
-       }
-       else{ 
-        alert("Les champs numériques doivent etre positives") 
-        return ;
+                        }
+                        else{ 
+                            alert("Les champs numériques doivent etre positives") 
+                            return ;
 
-       }
-      
+                        }
+                        
         
     
 
-    }
+                  }
    
 }

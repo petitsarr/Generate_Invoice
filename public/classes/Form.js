@@ -20,6 +20,8 @@ export class FormInput {
         this.hiddenDiv = document.getElementById("hiddenDiv");
         // ma div de form que je dois cacher pour inserer mon document
         this.formContainer = document.getElementById("form-container");
+        // Ma button imprimer 
+        this.btnprint = document.getElementById("print");
         this.submitFormListener();
     }
     submitFormListener() {
@@ -34,7 +36,7 @@ export class FormInput {
                 docData = new datas(type, firstName, lastName, address, country, town, zip, product, price, quantity, tva, newdate);
                 console.log("docForamt==>", docData.htmlFormat());
                 let docTemplate;
-                docTemplate = new Display(this.docContainer, this.hiddenDiv, this.formContainer);
+                docTemplate = new Display(this.docContainer, this.hiddenDiv, this.formContainer, this.btnprint);
                 docTemplate.render(docData, type);
             }
             // console.log("my datas==>",data) 
