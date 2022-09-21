@@ -2,8 +2,10 @@ import { datas } from "./datas.js";
 import { Display } from "./Display.js";
 import {HasHtmlFormat} from "../interfaces/HasHtmlFormat.js" 
 import {HasRender} from "../interfaces/HasRender.js" ;  
-import { Print } from "./print.js";
-import { HasPrint } from "../interfaces/hasPrint.js";
+import { Print } from "./Print.js";
+import { HasPrint } from "../interfaces/hasPrint.js";  
+import {Mystorage}  from "./Storage.js"
+import { HasSetItem } from "../interfaces/HasSetItem.js";
 export class FormInput { 
 
     form : HTMLFormElement  ;
@@ -101,7 +103,20 @@ export class FormInput {
 
                             docTemplate = new Display(this.docContainer ,this.hiddenDiv , this.formContainer ,this.btnprint)   
 
-                            docTemplate.render(docData , type)
+                            docTemplate.render(docData , type)    
+
+                        //    update array on the localstorage
+
+                            let getvalueString = docData.htmlFormat()
+                            
+                            let storageData :HasSetItem
+
+                       
+                             storageData  = new Mystorage()    
+                            
+                            
+
+                            storageData.setItem(type , getvalueString)
 
             }  
 

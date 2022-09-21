@@ -1,6 +1,7 @@
 import { datas } from "./datas.js";
 import { Display } from "./Display.js";
-import { Print } from "./print.js";
+import { Print } from "./Print.js";
+import { Mystorage } from "./Storage.js";
 export class FormInput {
     constructor() {
         this.form = document.getElementById("form");
@@ -44,6 +45,11 @@ export class FormInput {
                 let docTemplate;
                 docTemplate = new Display(this.docContainer, this.hiddenDiv, this.formContainer, this.btnprint);
                 docTemplate.render(docData, type);
+                //    update array on the localstorage
+                let getvalueString = docData.htmlFormat();
+                let storageData;
+                storageData = new Mystorage();
+                storageData.setItem(type, getvalueString);
             }
             // console.log("my datas==>",data) 
             // console.log("my date==>",dat)
