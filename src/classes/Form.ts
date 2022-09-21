@@ -24,7 +24,11 @@ export class FormInput {
     hiddenDiv : HTMLDivElement 
     formContainer : HTMLDivElement  
     btnprint : HTMLButtonElement 
-    btnreload : HTMLButtonElement
+    btnreload : HTMLButtonElement  
+    btnfacture  : HTMLButtonElement 
+    btndevis : HTMLButtonElement 
+    divStore  : HTMLDivElement
+    
 
          constructor() {  
 
@@ -64,16 +68,28 @@ export class FormInput {
                          // texte a afficher sur mon boutton imprimer
                         this.btnprint = document.getElementById("print") as HTMLButtonElement  
 
-                        this.btnreload = document.getElementById("reload") as HTMLButtonElement
+                        this.btnreload = document.getElementById("reload") as HTMLButtonElement 
+
+                        this.btnfacture = document.getElementById("stored-invoices")  as HTMLButtonElement 
+
+                        this.btndevis =  document.getElementById("stored-estimates") as HTMLButtonElement    
+
+                        this.divStore = document.getElementById("stored-data") as HTMLDivElement
                             
 
                         // listeners   
 
+                        // Button valider
                         this.submitFormListener()    
-
+                         
+                        // Button imprimer
                          this.listenerPrint(this.btnprint ,this.docContainer)  
 
-                         this.reloadListener (this.btnreload)
+                         // Button reload pour recharger la page apres imprimer
+                         this.reloadListener (this.btnreload)  
+                        
+                         // Button Afficher la liste des factures
+                         this.getFactureListener()
 
                                 } 
 // Listeners 
@@ -97,7 +113,7 @@ export class FormInput {
 
                             docData = new datas (type ,firstName ,lastName , address , country , town , zip , product , price ,quantity , tva,newdate) 
 
-                            console.log("docForamt==>" , docData.htmlFormat())    
+                         //   console.log("docForamt==>" , docData.htmlFormat())    
 
                             let docTemplate : HasRender 
 
@@ -179,10 +195,83 @@ export class FormInput {
                             return ;
 
                         }
-                        
-        
-    
 
-                  }
+                  }  
+
+         private getFactureListener() : void { 
+
+          this.btnfacture.addEventListener("click" , this.getItems.bind(this,"invoice") )   
+
+          this.btndevis.addEventListener("click" , this.getItems.bind(this,"estimate") )   
+         }  
+         
+         private getItems (doctye : string)  {    
+
+            // vérifié si  mon <div id="stored-data" class="card mt-5"></div> est vide ou pas 
+            // si il est pas vide je vais le vider avec innerHtml  
+
+         //   Node.hasChildNodes() renvoie un Boolean indiquant si le noeud actuel possède des nœuds enfants ou non.  
+
+             if(this.divStore.hasChildNodes()) { 
+
+                this.divStore.innerHTML = " "
+             } 
+
+             if (localStorage.getItem(doctye)) {  
+
+                let array : string | null  
+
+                array = localStorage.getItem(doctye)  
+
+                if(array !== null && array.length > 2 ) {  
+
+                   let arrayData : string[]    
+
+                    arrayData = JSON.parse(array)     
+                    
+                    arrayData.map((doc )  =>{   
+                     
+                        // je creé deux div au niveau de <div id="stored-data" class="card mt-5"></div> 
+                        // 1er card de bootstrap 
+                        // 2ieme card-body de bootstrap  
+
+                        let card : HTMLDivElement = document.createElement("div")  
+
+                        let cardBody : HTMLDivElement = document.createElement("div")  
+
+                        // Mettre les class 
+
+                        let cardClass : string[] = ["card" , "mt-5"]  
+
+                        let cardBodyClass : string = "card-body"  
+
+                        card.classList.add(...cardClass)   
+
+                        card.classList.add(cardBodyClass)  
+
+                        cardBody.innerHTML = doc  
+
+                        card.appendChild(cardBody) 
+
+                        this.divStore.appendChild(card)
+ 
+
+                    })
+
+                }  
+
+                else {
+                    this.divStore.innerHTML = ` 
+                    <div class="alert alert-danger" role="alert">
+                      Aucune Donnéé Disponible Actuellement!
+                   </div>
+                    `
+                }
+
+       
+             }
+            
+
+         }
    
 }

@@ -12,10 +12,10 @@ export class Mystorage {
         }
     }
     setItem(typeValue, htmlString) {
-        console.log(`IS =====> ${typeValue} et ${htmlString}`);
+        // console.log(`IS =====> ${typeValue} et ${htmlString}`) 
         let array;
         array = localStorage.getItem(typeValue);
-        console.log("arrray===>", array, typeof (array));
+        //  console.log("arrray===>" , array , typeof(array)) 
         //console.log("My new",newArray)
         if (array !== null) {
             this.oldData = JSON.parse(array);

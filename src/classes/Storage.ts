@@ -24,14 +24,14 @@ export class Mystorage implements HasSetItem {
 
     setItem(typeValue: string, htmlString: string): void { 
 
-        console.log(`IS =====> ${typeValue} et ${htmlString}`) 
+       // console.log(`IS =====> ${typeValue} et ${htmlString}`) 
 
 
         let array : string | null 
         
         array = localStorage.getItem(typeValue)  
 
-        console.log("arrray===>" , array , typeof(array)) 
+      //  console.log("arrray===>" , array , typeof(array)) 
 
               //console.log("My new",newArray)
 

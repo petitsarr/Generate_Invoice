@@ -25,10 +25,18 @@ export class FormInput {
         // texte a afficher sur mon boutton imprimer
         this.btnprint = document.getElementById("print");
         this.btnreload = document.getElementById("reload");
+        this.btnfacture = document.getElementById("stored-invoices");
+        this.btndevis = document.getElementById("stored-estimates");
+        this.divStore = document.getElementById("stored-data");
         // listeners   
+        // Button valider
         this.submitFormListener();
+        // Button imprimer
         this.listenerPrint(this.btnprint, this.docContainer);
+        // Button reload pour recharger la page apres imprimer
         this.reloadListener(this.btnreload);
+        // Button Afficher la liste des factures
+        this.getFactureListener();
     }
     // Listeners 
     submitFormListener() {
@@ -41,7 +49,7 @@ export class FormInput {
                 let docData;
                 let newdate = new Date();
                 docData = new datas(type, firstName, lastName, address, country, town, zip, product, price, quantity, tva, newdate);
-                console.log("docForamt==>", docData.htmlFormat());
+                //   console.log("docForamt==>" , docData.htmlFormat())    
                 let docTemplate;
                 docTemplate = new Display(this.docContainer, this.hiddenDiv, this.formContainer, this.btnprint);
                 docTemplate.render(docData, type);
@@ -87,6 +95,48 @@ export class FormInput {
         else {
             alert("Les champs numériques doivent etre positives");
             return;
+        }
+    }
+    getFactureListener() {
+        this.btnfacture.addEventListener("click", this.getItems.bind(this, "invoice"));
+        this.btndevis.addEventListener("click", this.getItems.bind(this, "estimate"));
+    }
+    getItems(doctye) {
+        // vérifié si  mon <div id="stored-data" class="card mt-5"></div> est vide ou pas 
+        // si il est pas vide je vais le vider avec innerHtml  
+        //   Node.hasChildNodes() renvoie un Boolean indiquant si le noeud actuel possède des nœuds enfants ou non.  
+        if (this.divStore.hasChildNodes()) {
+            this.divStore.innerHTML = " ";
+        }
+        if (localStorage.getItem(doctye)) {
+            let array;
+            array = localStorage.getItem(doctye);
+            if (array !== null && array.length > 2) {
+                let arrayData;
+                arrayData = JSON.parse(array);
+                arrayData.map((doc) => {
+                    // je creé deux div au niveau de <div id="stored-data" class="card mt-5"></div> 
+                    // 1er card de bootstrap 
+                    // 2ieme card-body de bootstrap  
+                    let card = document.createElement("div");
+                    let cardBody = document.createElement("div");
+                    // Mettre les class 
+                    let cardClass = ["card", "mt-5"];
+                    let cardBodyClass = "card-body";
+                    card.classList.add(...cardClass);
+                    card.classList.add(cardBodyClass);
+                    cardBody.innerHTML = doc;
+                    card.appendChild(cardBody);
+                    this.divStore.appendChild(card);
+                });
+            }
+            else {
+                this.divStore.innerHTML = ` 
+                    <div class="alert alert-danger" role="alert">
+                      Aucune Donnéé Disponible Actuellement!
+                   </div>
+                    `;
+            }
         }
     }
 }

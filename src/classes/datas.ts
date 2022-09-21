@@ -66,10 +66,10 @@ export class datas implements HasHtmlFormat {
 
                         <div class="row pb-5 p-5">
                             <div class="col-sm-6 text-left">
-                                <p class="font-weight-bold">Entreprise de Toto</p>
-                                <p class="mb-1">22 boulevard Moe Szyslak</p>
-                                <p>75008 - Paris</p>
-                                <p class="mb-1">Tél: 00.00.00.00.00</p>
+                                <p class="font-weight-bold">Entreprise de Petit</p>
+                                <p class="mb-1">22 En face Pharmacie ubt</p>
+                                <p>2123 - Dakar</p>
+                                <p class="mb-1">Tél: 775483451</p>
                             </div>
 
                             <div class="col-sm-6 text-right">
