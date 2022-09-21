@@ -1,7 +1,10 @@
 
-import { FormInput} from "./classes/Form.js"
+import { FormInput} from "./classes/Form.js"   
+import {Mystorage}   from "./classes/Storage.js"
 
- new FormInput() 
+ new FormInput()   
+
+ Mystorage.CheckLocalStorage()
  
  
 

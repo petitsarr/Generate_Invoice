@@ -1,5 +1,7 @@
 import { FormInput } from "./classes/Form.js";
+import { Mystorage } from "./classes/Storage.js";
 new FormInput();
+Mystorage.CheckLocalStorage();
 /* Submit Form
 form.addEventListener("submit" , (e : Event)=>{
     e.preventDefault()
